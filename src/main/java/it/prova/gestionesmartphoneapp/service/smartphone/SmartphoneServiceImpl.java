@@ -1,5 +1,7 @@
 package it.prova.gestionesmartphoneapp.service.smartphone;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import it.prova.gestionesmartphoneapp.dao.EntityManagerUtil;
@@ -133,6 +135,28 @@ public class SmartphoneServiceImpl implements SmartphoneService{
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+
+
+	@Override
+	public List<Smartphone> listaS() throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+
+			// uso l'injection per il dao
+			smartphoneDAO.setEntityManager(entityManager);
+			
+			return smartphoneDAO.list();
+			
+
+		
+		} catch (Exception e) {
+		
 			e.printStackTrace();
 			throw e;
 		} finally {

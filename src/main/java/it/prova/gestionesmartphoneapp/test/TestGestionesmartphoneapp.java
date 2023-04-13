@@ -21,7 +21,10 @@ public class TestGestionesmartphoneapp {
 
 //		testInserisci(smartphoneServiceInstance);
 //		testInserici(appServiceInstance);
-		testAggiornaVersione(smartphoneServiceInstance);
+//		testAggiornaVersione(smartphoneServiceInstance);
+//		testAggiornaVersioneEAggiornaDataUltimoUpdate(appServiceInstance);
+//		testInstalla(smartphoneServiceInstance, appServiceInstance);
+		testDisinstalla(smartphoneServiceInstance, appServiceInstance);
 
 		try {
 
@@ -67,10 +70,57 @@ public class TestGestionesmartphoneapp {
 		System.out.println("----------FINISCE IL TEST-----------------");
 	}
 	
+	private static void lista(AppService appServiceInstance) throws Exception {
+		System.out.println("----------INIZIA IL TEST-----------------");
+		
+		List<App> result = appServiceInstance.listaA();
+		
+		System.out.println(result);
+		
+		
+		System.out.println("----------FINISCE IL TEST-----------------");
+	}
+	private static void lista(SmartphoneService smartphoneServiceInstance) throws Exception {
+		System.out.println("----------INIZIA IL TEST-----------------");
+		
+		List<Smartphone> result = smartphoneServiceInstance.listaS();
+		
+		System.out.println(result);
+		
+		System.out.println("----------FINISCE IL TEST-----------------");
+	}
+	
 	private static void testAggiornaVersioneEAggiornaDataUltimoUpdate(AppService appServiceInstance) throws Exception {
 		System.out.println("----------INIZIA IL TEST-----------------");
 		
+		App daModificare = appServiceInstance.listaA().get(0);
 		
+		daModificare.setVersione(8);
+		daModificare.setDataUltimoAggiornamento(LocalDate.now());
+		
+		appServiceInstance.aggiornaVersioneEAggiornaDataUltimoUpdate(daModificare, 8);
+		
+		
+		System.out.println("----------FINISCE IL TEST-----------------");
+	}
+	
+	private static void testInstalla(SmartphoneService smartphoneServiceInstance,AppService appServiceInstance)throws Exception {
+           System.out.println("----------INIZIA IL TEST-----------------");
+		Smartphone smart = smartphoneServiceInstance.listaS().get(0);
+		App ap = appServiceInstance.listaA().get(0);
+           
+		smartphoneServiceInstance.aggiungiApp(smart,ap );
+		
+		
+		System.out.println("----------FINISCE IL TEST-----------------");
+	}
+	
+	private static void testDisinstalla(SmartphoneService smartphoneServiceInstance,AppService appServiceInstance)throws Exception {
+        System.out.println("----------INIZIA IL TEST-----------------");
+		Smartphone smart = smartphoneServiceInstance.listaS().get(0);
+		App ap = appServiceInstance.listaA().get(0);
+        
+		smartphoneServiceInstance.disinstallaiApp(smart,ap );
 		
 		
 		System.out.println("----------FINISCE IL TEST-----------------");

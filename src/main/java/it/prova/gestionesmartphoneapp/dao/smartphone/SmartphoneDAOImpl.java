@@ -17,8 +17,7 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
 	
 	@Override
 	public List<Smartphone> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from Smartphone", Smartphone.class).getResultList();
 	}
 
 	@Override

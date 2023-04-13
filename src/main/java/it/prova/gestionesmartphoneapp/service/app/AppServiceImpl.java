@@ -1,6 +1,7 @@
 package it.prova.gestionesmartphoneapp.service.app;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -57,7 +58,23 @@ public class AppServiceImpl implements AppService {
 		}
 
 	}
-	
-	
+
+	@Override
+	public List<App> listaA() throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			appDAO.setEntityManager(entityManager);
+			
+			return appDAO.list();
+		
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+
+	}
 	
 }
